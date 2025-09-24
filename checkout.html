@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - MARCIVO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+       <div class="main-menu">
+     <div class="image-area">
+        <a href="index.html">
+        <img src="./assets/play.png" height="auto" width="auto"/>
+    </a> 
+    </div>
+        <div class="sub-menus">
+        <li class="sub-menu">
+            <div class="point">1</div>
+            <div class="data-point">ANSWER THE QUESTION</div>
+        </li>
+        <li class="sub-menu">
+            <div class="point">2</div>
+            <div class="data-point">FILL IN THE BLANK</div>
+        </li>
+        <li class="sub-menu">
+            <div class="point">3</div>
+            <div class="data-point">GET THE PRIZE</div>
+        </li>
+
+    </div>
+    </div>
+    <div class="container my-5">
+        <div class="row">
+            <!-- Left Section: Form -->
+            <div class="col-md-8">
+                <h2 class="mb-4">Express Checkout</h2>
+                <form action="thankyou.html" method="POST" id="checkout-form">
+                    <!-- Contact Section -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="marketing-opt-in" name="marketing-opt-in" checked>
+                        <label class="form-check-label" for="marketing-opt-in">Email me with news and offers</label>
+                    </div>
+
+                    <!-- Delivery Section -->
+                    <h4 class="mt-4">Delivery Information</h4>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country/Region</label>
+                        <select class="form-select" id="country" name="country" required>
+                            <option value="MY" selected>Malaysia</option>
+                            <option value="AU">Australia</option>
+                            <option value="US">United States</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="first-name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first-name" name="first-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="last-name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last-name" name="last-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apartment" class="form-label">Apartment, suite, etc. (optional)</label>
+                        <input type="text" class="form-control" id="apartment" name="apartment">
+                    </div>
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postcode" class="form-label">Postcode</label>
+                        <input type="text" class="form-control" id="postcode" name="postcode" required>
+                    </div>
+
+                    <!-- Shipping Method Section -->
+                    <h4 class="mt-4">Shipping Method</h4>
+                    <p>Enter your shipping address to view available shipping methods.</p>
+
+                    <!-- Payment Section -->
+                    <h4 class="mt-4">Payment Information</h4>
+                    <div class="mb-3">
+                        <label class="form-label">Payment Method</label>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="credit-card" name="payment-method" value="credit-card" checked>
+                            <label class="form-check-label" for="credit-card">Credit Card</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="paypal" name="payment-method" value="paypal">
+                            <label class="form-check-label" for="paypal">PayPal</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="shop-pay" name="payment-method" value="shop-pay">
+                            <label class="form-check-label" for="shop-pay">Shop Pay</label>
+                        </div>
+                    </div>
+
+                    <!-- Credit Card Fields -->
+                    <div class="credit-card-fields">
+                        <div class="mb-3">
+                            <label for="card-number" class="form-label">Card Number</label>
+                            <input type="text" class="form-control" id="card-number" name="card-number" placeholder="Card number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expiry-date" class="form-label">Expiration Date (MM / YY)</label>
+                            <input type="text" class="form-control" id="expiry-date" name="expiry-date" placeholder="MM / YY" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="security-code" class="form-label">Security Code</label>
+                            <input type="text" class="form-control" id="security-code" name="security-code" placeholder="Security code" required>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me Section -->
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
+                        <label class="form-check-label" for="remember-me">Save my information for a faster checkout with a Shop account</label>
+                    </div>
+
+                    <!-- Place Order Button -->
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary w-100">Place your order</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Section: Order Summary -->
+            <div class="col-md-4">
+                <div class="card order-summary">
+                    <div class="card-body">
+                        <h5 class="card-title">Order Summary</h5>
+                        <div class="d-flex justify-content-between">
+                            <span>Package Protection</span>
+                            <span>$1.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Fantastico 5k Mask + T-shirt</span>
+                            <span>$46.99</span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <h5>Total</h5>
+                            <h5 class="total-price">$47.99</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
