@@ -1,164 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - MARCIVO</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Page with jQuery Validation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .checkout-container {
+      max-width: 1100px;
+      margin: 40px auto;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .card-header {
+      background-color: #198754;
+      color: white;
+      font-weight: 600;
+    }
+    .error {
+      color: #dc3545;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    input.error-border, select.error-border {
+      border-color: #dc3545 !important;
+    }
+  </style>
 </head>
-
 <body>
-       <div class="main-menu">
-     <div class="image-area">
-        <a href="index.html">
-        <img src="./assets/play.png" height="auto" width="auto"/>
-    </a> 
-    </div>
-        <div class="sub-menus">
-        <li class="sub-menu">
-            <div class="point">1</div>
-            <div class="data-point">ANSWER THE QUESTION</div>
-        </li>
-        <li class="sub-menu">
-            <div class="point">2</div>
-            <div class="data-point">FILL IN THE BLANK</div>
-        </li>
-        <li class="sub-menu">
-            <div class="point">3</div>
-            <div class="data-point">GET THE PRIZE</div>
-        </li>
 
-    </div>
-    </div>
-    <div class="container my-5">
-        <div class="row">
-            <!-- Left Section: Form -->
-            <div class="col-md-8">
-                <h2 class="mb-4">Express Checkout</h2>
-                <form action="thankyou.html" method="POST" id="checkout-form">
-                    <!-- Contact Section -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="marketing-opt-in" name="marketing-opt-in" checked>
-                        <label class="form-check-label" for="marketing-opt-in">Email me with news and offers</label>
-                    </div>
-
-                    <!-- Delivery Section -->
-                    <h4 class="mt-4">Delivery Information</h4>
-                    <div class="mb-3">
-                        <label for="country" class="form-label">Country/Region</label>
-                        <select class="form-select" id="country" name="country" required>
-                            <option value="MY" selected>Malaysia</option>
-                            <option value="AU">Australia</option>
-                            <option value="US">United States</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="first-name" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="first-name" name="first-name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="last-name" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="last-name" name="last-name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="apartment" class="form-label">Apartment, suite, etc. (optional)</label>
-                        <input type="text" class="form-control" id="apartment" name="apartment">
-                    </div>
-                    <div class="mb-3">
-                        <label for="city" class="form-label">City</label>
-                        <input type="text" class="form-control" id="city" name="city" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="postcode" class="form-label">Postcode</label>
-                        <input type="text" class="form-control" id="postcode" name="postcode" required>
-                    </div>
-
-                    <!-- Shipping Method Section -->
-                    <h4 class="mt-4">Shipping Method</h4>
-                    <p>Enter your shipping address to view available shipping methods.</p>
-
-                    <!-- Payment Section -->
-                    <h4 class="mt-4">Payment Information</h4>
-                    <div class="mb-3">
-                        <label class="form-label">Payment Method</label>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" id="credit-card" name="payment-method" value="credit-card" checked>
-                            <label class="form-check-label" for="credit-card">Credit Card</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" id="paypal" name="payment-method" value="paypal">
-                            <label class="form-check-label" for="paypal">PayPal</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" id="shop-pay" name="payment-method" value="shop-pay">
-                            <label class="form-check-label" for="shop-pay">Shop Pay</label>
-                        </div>
-                    </div>
-
-                    <!-- Credit Card Fields -->
-                    <div class="credit-card-fields">
-                        <div class="mb-3">
-                            <label for="card-number" class="form-label">Card Number</label>
-                            <input type="text" class="form-control" id="card-number" name="card-number" placeholder="Card number" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="expiry-date" class="form-label">Expiration Date (MM / YY)</label>
-                            <input type="text" class="form-control" id="expiry-date" name="expiry-date" placeholder="MM / YY" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="security-code" class="form-label">Security Code</label>
-                            <input type="text" class="form-control" id="security-code" name="security-code" placeholder="Security code" required>
-                        </div>
-                    </div>
-
-                    <!-- Remember Me Section -->
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
-                        <label class="form-check-label" for="remember-me">Save my information for a faster checkout with a Shop account</label>
-                    </div>
-
-                    <!-- Place Order Button -->
-                    <div class="mt-4">
-                        <button type="submit" class="btn btn-primary w-100">Place your order</button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Right Section: Order Summary -->
-            <div class="col-md-4">
-                <div class="card order-summary">
-                    <div class="card-body">
-                        <h5 class="card-title">Order Summary</h5>
-                        <div class="d-flex justify-content-between">
-                            <span>Package Protection</span>
-                            <span>$1.00</span>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span>Fantastico 5k Mask + T-shirt</span>
-                            <span>$46.99</span>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <h5>Total</h5>
-                            <h5 class="total-price">$47.99</h5>
-                        </div>
-                    </div>
+  <div class="container checkout-container">
+    <h2 class="text-center mb-4">Checkout Page (jQuery Validation)</h2>
+    <div class="row g-4">
+      <!-- Billing Form -->
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header">Billing & Payment Details</div>
+          <div class="card-body">
+            <form id="checkoutForm">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">First Name</label>
+                  <input type="text" id="fname" class="form-control" placeholder="Enter first name">
                 </div>
-            </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Last Name</label>
+                  <input type="text" id="lname" class="form-control" placeholder="Enter last name">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" id="address" class="form-control" placeholder="123 Main Street">
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">City</label>
+                  <input type="text" id="city" class="form-control" placeholder="Enter city">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Country</label>
+                  <select id="country" class="form-select">
+                    <option value="">Choose...</option>
+                    <option>Pakistan</option>
+                    <option>Canada</option>
+                    <option>USA</option>
+                    <option>UK</option>
+                  </select>
+                </div>
+                <div class="col-md-2 mb-3">
+                  <label class="form-label">ZIP</label>
+                  <input type="text" id="zip" class="form-control" placeholder="00000">
+                </div>
+              </div>
+
+              <h5 class="mt-4">Payment Method</h5>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="credit" checked>
+                <label class="form-check-label" for="credit">Credit Card</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paypal">
+                <label class="form-check-label" for="paypal">PayPal</label>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Card Number</label>
+                  <input type="text" id="card" class="form-control" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label class="form-label">Expiry</label>
+                  <input type="text" id="expiry" class="form-control" placeholder="MM/YY">
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label class="form-label">CVV</label>
+                  <input type="text" id="cvv" class="form-control" placeholder="123">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-success w-100 py-2 mt-2">Place Order</button>
+            </form>
+          </div>
         </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-header">Order Summary</div>
+          <div class="card-body">
+            <ul class="list-group mb-3">
+              <li class="list-group-item d-flex justify-content-between">
+                <div><h6>Product 1</h6></div>
+                <span>$50</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <div><h6>Product 2</h6></div>
+                <span>$30</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between bg-light">
+                <span>Shipping</span>
+                <strong>$10</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Total</span>
+                <strong>$90</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#checkoutForm").on("submit", function(e) {
+    e.preventDefault(); // Stop form from submitting immediately
+
+    let valid = true;
+    $(".error").remove(); // Clear previous error messages
+    $("input, select").removeClass("error-border");
+
+    // Helper function
+    function showError(id, message) {
+      valid = false;
+      $("#" + id).addClass("error-border").after("<div class='error'>" + message + "</div>");
+    }
+
+    // Validation rules
+    if ($("#fname").val().trim() === "") showError("fname", "First name is required");
+    if ($("#lname").val().trim() === "") showError("lname", "Last name is required");
+    if ($("#email").val().trim() === "") showError("email", "Email is required");
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($("#email").val())) showError("email", "Invalid email format");
+    if ($("#address").val().trim() === "") showError("address", "Address is required");
+    if ($("#city").val().trim() === "") showError("city", "City is required");
+    if ($("#country").val() === "") showError("country", "Please select a country");
+    if ($("#zip").val().trim() === "") showError("zip", "ZIP code is required");
+    if ($("#card").val().trim() === "") showError("card", "Card number is required");
+    if ($("#expiry").val().trim() === "") showError("expiry", "Expiry date is required");
+    if ($("#cvv").val().trim() === "") showError("cvv", "CVV is required");
+
+    // If all fields valid
+    if (valid) {
+      alert("Form submitted successfully!");
+      this.reset();
+    }
+  });
+});
+</script>
+<script>
+$(document).ready(function(){
+  const productData = JSON.parse(localStorage.getItem('checkoutProduct'));
+  if (productData) {
+    $('#productImage').attr('src', productData.image);
+    $('#productTitle').text(productData.title);
+    $('#productDesc').text(productData.desc);
+    $('#productPrice').text(productData.price);
+  }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
