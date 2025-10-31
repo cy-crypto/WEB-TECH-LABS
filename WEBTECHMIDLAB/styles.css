@@ -19,7 +19,6 @@ body {
     padding: 0 20px;
 }
 
-/* Header styles */
 .main-header {
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -93,7 +92,6 @@ body {
     background-color: #0056b3;
 }
 
-/* Hero section */
 .hero-section {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -150,7 +148,6 @@ body {
     height: auto;
 }
 
-/* How it works section */
 .how-it-works {
     padding: 80px 0;
     background-color: white;
@@ -206,7 +203,6 @@ body {
     color: #666;
 }
 
-/* Question section */
 .question-section {
     padding: 80px 0;
     background-color: #f8f9fa;
@@ -270,7 +266,6 @@ body {
     background-color: #218838;
 }
 
-/* Prizes section */
 .prizes-section {
     padding: 80px 0;
     background-color: white;
@@ -334,7 +329,6 @@ body {
     background-color: #0056b3;
 }
 
-/* Footer */
 .main-footer {
     background-color: #333;
     color: white;
@@ -378,7 +372,6 @@ body {
     color: #ccc;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
     .main-header .container {
         flex-direction: column;
@@ -411,6 +404,7 @@ body {
 
 .testimonials-container {
     position: relative;
+    overflow: hidden;
 }
 
 .testimonials-initial {
@@ -418,6 +412,23 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-bottom: 40px;
+    transition: all 0.5s ease-in-out;
+}
+
+.testimonials-initial.slider-active {
+    display: flex !important;
+    flex-wrap: nowrap;
+    overflow: visible;
+    gap: 30px;
+    margin-bottom: 20px;
+    transform: translateX(0);
+    transition: transform 0.5s ease-in-out;
+}
+
+.testimonials-initial.slider-active .testimonial-card {
+    flex: 0 0 calc(33.333% - 20px);
+    min-width: calc(33.333% - 20px);
+    transition: transform 0.3s ease;
 }
 
 .testimonial-card {
@@ -427,11 +438,22 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     border: 1px solid #e9ecef;
+    opacity: 1;
+    visibility: visible;
 }
 
 .testimonial-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.hidden-card {
+    display: none;
+}
+
+.testimonials-initial.slider-active .hidden-card {
+    display: block !important;
+    flex-shrink: 0;
 }
 
 .testimonial-header {
@@ -442,6 +464,7 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    justify-content: center;
 }
 
 .customer-avatar {
@@ -482,8 +505,7 @@ body {
     margin: 0;
 }
 
-/* View More Button */
-.view-more-container {
+.view-more-container-slider,.view-more-container-grid {
     text-align: center;
     margin-top: 30px;
 }
@@ -506,36 +528,8 @@ body {
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
 }
 
-/* Slider Styles */
-.testimonials-slider {
-    margin-top: 40px;
-    position: relative;
-}
-
-.testimonials-slider.hidden {
+.btn-view-more.hidden {
     display: none;
-}
-
-.testimonials-slider.active {
-    display: block;
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-.slider-container {
-    overflow: hidden;
-    border-radius: 10px;
-    position: relative;
-}
-
-.slider-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    gap: 30px;
-}
-
-.slider-track .testimonial-card {
-    flex: 0 0 calc(33.333% - 20px);
-    min-width: calc(33.333% - 20px);
 }
 
 .slider-controls {
@@ -549,6 +543,10 @@ body {
     padding: 0 10px;
     pointer-events: none;
     z-index: 2;
+}
+
+.slider-controls.active {
+    display: flex;
 }
 
 .slider-btn {
@@ -566,6 +564,7 @@ body {
     justify-content: center;
     font-size: 1.5rem;
     color: #333;
+    font-weight: bold;
 }
 
 .slider-btn:hover {
@@ -585,21 +584,13 @@ body {
     color: #333;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.hidden {
+    display: none;
 }
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
-    .slider-track .testimonial-card {
+    .testimonials-initial.slider-active .testimonial-card {
         flex: 0 0 calc(50% - 15px);
         min-width: calc(50% - 15px);
     }
@@ -611,7 +602,7 @@ body {
         gap: 20px;
     }
     
-    .slider-track .testimonial-card {
+    .testimonials-initial.slider-active .testimonial-card {
         flex: 0 0 100%;
         min-width: 100%;
     }
@@ -623,6 +614,12 @@ body {
         margin-top: 20px;
         justify-content: center;
         gap: 20px;
+    }
+    
+    .slider-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
     }
     
     .customer-info {
@@ -640,10 +637,69 @@ body {
     .testimonials-section {
         padding: 60px 0;
     }
+}
+/* Grid Layout */
+.testimonials-initial.grid-active {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    transform: none !important;
+}
+
+.testimonials-initial.grid-active .testimonial-card {
+    flex: none !important;
+    min-width: auto !important;
+}
+
+/* View More Buttons */
+.view-more-container {
+    text-align: center;
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-view-more-grid,
+.btn-view-more-slider {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.btn-view-more-grid:hover {
+    background-color: #28a745;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.btn-view-more-slider:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.btn-view-more-grid.hidden,
+.btn-view-more-slider.hidden {
+    display: none;
+}
+
+/* Responsive adjustments for buttons */
+@media (max-width: 768px) {
+    .view-more-container {
+        flex-direction: column;
+        align-items: center;
+    }
     
-    .slider-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
+    .btn-view-more-grid,
+    .btn-view-more-slider {
+        width: 200px;
     }
 }
