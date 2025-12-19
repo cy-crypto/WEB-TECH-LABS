@@ -1,0 +1,136 @@
+<%- include('partials/header') %>
+
+<section class="checkout-section">
+  <div class="container">
+    <h1 class="checkout-page-title">Checkout</h1>
+    
+    <div class="checkout-layout">
+      <div class="checkout-form-container">
+        <div class="checkout-card">
+          <h2>Shipping Information</h2>
+          <form id="checkoutForm" class="checkout-form" action="/order/preview" method="POST">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input id="name" name="name" type="text" placeholder="Enter your full name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input id="phone" name="phone" type="tel" placeholder="+1 234 567 8900" required />
+            </div>
+
+            <div class="form-group">
+              <label for="address">Shipping Address *</label>
+              <textarea id="address" name="address" placeholder="Street, city, country" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="coupon">Coupon Code (optional)</label>
+              <input id="coupon" name="coupon" type="text" placeholder="Enter coupon code e.g. SAVE10" />
+            </div>
+
+            <h2 style="margin-top: 30px; margin-bottom: 20px;">Payment Information</h2>
+
+            <div class="form-group">
+              <label for="card">Card Number *</label>
+              <input id="card" name="card" type="text" placeholder="1234 5678 9012 3456" maxlength="19" required />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="expiry">Expiry Date *</label>
+                <input id="expiry" name="expiry" type="text" placeholder="MM/YY" maxlength="5" required />
+              </div>
+
+              <div class="form-group">
+                <label for="cvv">CVV *</label>
+                <input id="cvv" name="cvv" type="password" placeholder="***" maxlength="4" required />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="checkout-summary">
+        <div class="checkout-summary-card">
+          <h2>Order Summary</h2>
+          
+          <div class="checkout-items-list">
+            <% cartItems.forEach(function(item) { %>
+              <div class="checkout-item">
+                <div class="checkout-item-image">
+                  <img src="<%= item.product.image %>" alt="<%= item.product.name %>" />
+                </div>
+                <div class="checkout-item-info">
+                  <h4><%= item.product.name %></h4>
+                  <p>Qty: <%= item.quantity %> × $<%= item.product.price.toFixed(2) %></p>
+                </div>
+                <div class="checkout-item-total">
+                  $<%= item.itemTotal.toFixed(2) %>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+
+          <div class="checkout-summary-divider"></div>
+
+          <div class="checkout-summary-row">
+            <span>Subtotal</span>
+            <span>$<%= subtotal.toFixed(2) %></span>
+          </div>
+          <div class="checkout-summary-row">
+            <span>Tax (8%)</span>
+            <span>$<%= tax.toFixed(2) %></span>
+          </div>
+          <div class="checkout-summary-row">
+            <span>Shipping</span>
+            <span>$<%= shipping.toFixed(2) %></span>
+          </div>
+          
+          <div class="checkout-summary-divider"></div>
+          
+          <div class="checkout-summary-row checkout-total">
+            <span>Total</span>
+            <span>$<%= total.toFixed(2) %></span>
+          </div>
+
+          <button type="submit" form="checkoutForm" class="btn-place-order">Preview Order</button>
+          <a href="/cart" class="btn-back-to-cart">← Back to Cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Format card number input
+document.addEventListener('DOMContentLoaded', function() {
+  const cardInput = document.getElementById('card');
+  if (cardInput) {
+    cardInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s/g, '');
+      let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+      e.target.value = formattedValue;
+    });
+  }
+
+  // Format expiry date input
+  const expiryInput = document.getElementById('expiry');
+  if (expiryInput) {
+    expiryInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+      }
+      e.target.value = value;
+    });
+  }
+});
+</script>
+
+<%- include('partials/footer') %>
